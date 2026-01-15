@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<devicedata>
+  <copyright>Copyright 2026 e-safe. All rights reserved.</copyright>
+  <manufacturer>e-safe</manufacturer>
+  <model>e_safe_contact_mqtt</model>
+  <creator>e-safe</creator>
+  <created>1/15/2026 3:00 PM</created>
+  <modified>1/15/2026 3:00 PM</modified>
+
+  <name>e_safe_contact_mqtt</name>
+
+  <small image_source="c4z">www/icons/device_sm.png</small>
+  <large image_source="c4z">www/icons/device_lg.png</large>
+
+  <control>lua_gen</control>
+  <driver>DriverWorks</driver>
+  <controlmethod>other</controlmethod>
+
+  <proxies qty="1">
+    <proxy proxybindingid="5001" name="CONTACT" primary="True">CONTACT_SENSOR</proxy>
+  </proxies>
+
+  <combo>true</combo>
+
+  <config>
+    <script encryption="0" file="driver.lua" jit="0" />
+
+    <properties>
+      <property>
+        <name>Broker Address</name>
+        <type>STRING</type>
+        <default>127.0.0.1</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Broker Port</name>
+        <type>STRING</type>
+        <default>1883</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Broker URI</name>
+        <type>STRING</type>
+        <default>mqtt://127.0.0.1:1883</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>MQTT Brokers Available</name>
+        <type>DYNAMIC_LIST</type>
+        <readonly>false</readonly>
+        <default />
+      </property>
+
+      <property>
+        <name>Selected Broker</name>
+        <type>STRING</type>
+        <readonly>true</readonly>
+        <default />
+      </property>
+
+      <property>
+        <name>Client ID</name>
+        <type>STRING</type>
+        <default>auto</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Keep Alive (sec)</name>
+        <type>STRING</type>
+        <default>30</default>
+        <readonly>false</readonly>
+      </property>
+
+      <!-- per evitare bug/NULL: default sempre valorizzato -->
+      <property>
+        <name>Topic</name>
+        <type>STRING</type>
+        <default>test/topic</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Subscribe To Topics</name>
+        <type>STRING</type>
+        <default>test/topic</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Quality Of Service</name>
+        <type>RANGED_INTEGER</type>
+        <minimum>0</minimum>
+        <maximum>2</maximum>
+        <default>0</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>True Values</name>
+        <type>STRING</type>
+        <default>OPEN,true,1,ON</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>False Values</name>
+        <type>STRING</type>
+        <default>CLOSED,false,0,OFF</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Debug</name>
+        <type>STRING</type>
+        <default>No</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Log Payload</name>
+        <type>STRING</type>
+        <default>Yes</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Allow Topic Wildcards</name>
+        <type>STRING</type>
+        <default>No</default>
+        <readonly>false</readonly>
+      </property>
+
+      <!-- proprieta' di stato in sola lettura (come felma_nod) -->
+      <property>
+        <name>Last Topic</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last Payload</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>MQTT Status</name>
+        <type>STRING</type>
+        <default>INIT</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Berto Agent Bound</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Berto Registry</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Berto Registry Type</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Berto Registry Preview</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+    </properties>
+
+    <actions>
+    </actions>
+    <commands />
+    <documentation file="www/documentation/documentation.rtf" />
+  </config>
+
+  <connections>
+    <connection>
+      <id>999</id>
+      <facing>1</facing>
+      <connectionname>Berto Agent</connectionname>
+      <type>1</type>
+      <consumer>True</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>True</linelevel>
+      <classes>
+        <class>
+          <classname>BERTO_DEVICE</classname>
+          <autobind>True</autobind>
+        </class>
+      </classes>
+    </connection>
+  </connections>
+
+  <capabilities />
+  <version>000001</version>
+</devicedata>

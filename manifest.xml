@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Driver type="c4z" name="e_safe_contact_mqtt" squishLua="false">
+  <Items>
+    <Item type="file" name="driver.xml" />
+    <Item type="file" name="driver.lua" />
+    <Item type="dir" name="www" recurse="true" />
+  </Items>
+</Driver>
