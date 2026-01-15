@@ -1,0 +1,79 @@
+CHANGELOG of Ksenia_lares4 Driver
+
+Ver 19000:
+- Fix case where zones are in "ALL" partitions
+
+Ver 18000:
+- Handle zones that are in multiple partitions
+
+Ver 17000:
+- Modify command used to bypass zones during arming
+- Delete command to un-bypass zones upon disarming, as would cause manually bypassed
+  sensors to be un-bypassed
+
+Ver 16000:
+- fix: disarming scenario should unbypass
+
+Ver 15000:
+- fix: index of nil value 'g_zonesToBypass'
+
+Ver 14000:
+- enabling HTTPS/TLS support
+- when arming if zones require bypass user is alerted and PIN requested
+- scenario configuration per partition in composer properties
+- Arm scenario options. Default arm added as scenario option to other properties
+- Remove unwanted function buttons. Custom A and Custom B scenario buttons added instead
+- Removed Houselogix and SoftKiwi licensing
+- EXCEPTION - noticed a small bug on Android UIs to do with PIN number screen popping up
+  when arming from an iOS device. Reported to Control4.
+
+Ver 13000:
+- fix: occationally memory leak
+
+Ver 12000:
+- fix: occationally log messages break the driver
+
+Ver 11000:
+- fix: occationally driver stop working with lares4 firmware greater than 1.7x
+
+Ver 10000:
+- support for new driver AUXI HT, added
+
+Ver 9000:
+- fix: internal table unexpected growth
+- improved stability and performance.
+
+Ver 8000:
+- fix: bug prevents driver to comunicate with DOMUS drivers
+- performace emprouvement
+
+Ver 6000:
+- support for new driver DOMUS, added
+- better state synchronization with Light-to-Relay driver
+
+Ver 5000:
+- better integration with Light-to-Relay driver
+
+Ver 4000:
+- fix the selection of scenarios by the keypad on iPhone
+
+Ver 3000:
+- fix keypad on iPhone (UI_REQ table)
+- numeric temperature variable, added
+- new license provider, added
+- fix on update scenarios properties
+
+Ver 1020:
+- fix list of no-automation scenarios
+- fix interfaceID = nil (on Android starting from OS3)
+- better support for Temperature variables
+
+Ver 1010:
+- fix on lares change not red by the driver (Synch)
+- fix on RemoveZone (ipairs error)
+
+Ver 1003:
+- fix on queue manager.
+
+Ver 1002: 
+- fix on licensing manager and Persist Variables.
