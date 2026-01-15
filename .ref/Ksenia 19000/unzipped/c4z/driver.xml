@@ -1,0 +1,2420 @@
+<devicedata>
+  <copyright>Copyright 2017-2025 Ksenia Security Srl. All rights reserved.</copyright>
+  <version>19000</version>
+  <creator>soft.kiwi</creator>
+  <manufacturer>soft.kiwi by Kiwifarm</manufacturer>
+  <name>Ksenia lares 4</name>
+  <model>Ksenia lares 4</model>
+  <created>2018-03-28 14:00</created>
+  <modified>2025-12-19 17:13</modified>
+  <small>images\devices_sm\16B.gif</small>
+  <large>images\devices_sm\32B.gif</large>
+  <control>lua_gen</control>
+  <composer_categories>
+    <category>Security</category>
+  </composer_categories>
+  <proxies qty="21">
+    
+    <proxy image_source="c4z" large_image="icons/ks32.png" name="Ksenia lares 4" proxybindingid="5001" small_image="icons/ks16.png">securitypanel</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 1" proxybindingid="5002" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 2" proxybindingid="5003" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 3" proxybindingid="5004" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 4" proxybindingid="5005" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 5" proxybindingid="5006" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 6" proxybindingid="5007" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 7" proxybindingid="5008" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 8" proxybindingid="5009" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 9" proxybindingid="5010" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 10" proxybindingid="5011" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 11" proxybindingid="5012" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 12" proxybindingid="5013" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 13" proxybindingid="5014" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 14" proxybindingid="5015" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 15" proxybindingid="5016" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 16" proxybindingid="5017" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 17" proxybindingid="5018" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 18" proxybindingid="5019" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 19" proxybindingid="5020" small_image="icons/p16.png">security</proxy>
+    <proxy image_source="c4z" large_image="icons/p32.png" name="Ksenia Partition 20" proxybindingid="5021" small_image="icons/p16.png">security</proxy>
+  </proxies>
+  <driver>DriverWorks</driver>
+  <states />
+  <top />
+  <bottom />
+  <left />
+  <right />
+  <capabilities>
+    
+    <can_set_time>true</can_set_time>
+    <can_activate_partitions>true</can_activate_partitions>
+    
+    <ui_version>2</ui_version>
+    <has_fire>false</has_fire>
+    <has_medical>false</has_medical>
+    <has_police>false</has_police>
+    <has_panic>true</has_panic>
+    <has_alrm_cleared_event>false</has_alrm_cleared_event>
+    <star_label>*</star_label>
+    <pound_label>#</pound_label>
+    <button_A>
+      <visible>True</visible>
+      <label>Up</label>
+    </button_A>
+    <button_B>
+      <visible>True</visible>
+      <label>Ok</label>
+    </button_B>
+    <button_C>
+      <visible>True</visible>
+      <label>Down</label>
+    </button_C>
+    <button_D>
+      <visible>True</visible>
+      <label>Esc</label>
+    </button_D>
+    <arm_states>Home Scenario,Away Scenario,Stay Scenario,Arm Scenario</arm_states>
+    <functions>Disarming Scenario,Custom A Scenario,Custom B Scenario</functions>
+  </capabilities>
+  <config>
+    <script encryption="0" file="driver.lua" jit="1" />
+    <documentation file="www/documentation.rtf" />
+    <actions>
+      <action>
+        <name>Clear internal tables</name>
+        <command>ClearInternalTables</command>
+      </action>
+      <action>
+        <name>Remove old Variable and Output</name>
+        <command>actionRemove</command>
+      </action>
+      <action>
+        <name>Display C4 Variable</name>
+        <command>actionVariable</command>
+      </action>
+      <action>
+        <name>Display Status</name>
+        <command>actionStatus</command>
+      </action>
+      <action>
+        <name>Print Log Tags</name>
+        <command>printTags</command>
+      </action>
+      <action>
+        <name>Data and license</name>
+        <command>data_license</command>
+      </action>
+      <action>
+        <name>rePopulate scenarios's properties</name>
+        <command>actionRepopScenario</command>
+      </action>
+      <action>
+        <name>trigger</name>
+        <command>triggerFunction</command>
+      </action>
+    </actions>
+    <properties>
+      <property>
+        <name>Ksenia websocket IP address</name>
+        <type>STRING</type>
+        <default>192.168.x.x</default>
+        <readonly>False</readonly>
+      </property>
+      <property>
+        <name>Ksenia websocket protocol</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>TCP</default>
+        <items>
+          <item>TCP</item>
+          <item>TLS</item>
+        </items>
+      </property>
+      <property>
+        <name>Ksenia websocket IP port</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>80</default>
+        <items>
+          <item>80</item>
+          <item>443</item>
+        </items>
+      </property>
+      <property>
+        <name>Ksenia installer password</name>
+        <type>STRING</type>
+        <default>default</default>
+        <readonly>False</readonly>
+      </property>
+      <property>
+        <name>Ksenia user password</name>
+        <type>STRING</type>
+        <default>default</default>
+        <readonly>False</readonly>
+      </property>
+      <property>
+        <name>Polling Period (minutes)</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>5</default>
+        <items>
+          <item>OFF</item>
+          <item>1</item>
+          <item>5</item>
+          <item>30</item>
+        </items>
+      </property>
+            
+      <property>
+        <name>Ks Last Config</name>
+        <type>STRING</type>
+        <readonly>true</readonly>
+        <default>Set Properties and then Read from panel</default>
+      </property>
+      <property>
+        <name>Partition 1 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 1 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 2 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 3 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 4 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 5 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 6 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 7 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 8 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 9 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 10 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 11 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 12 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 13 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 14 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 15 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 16 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 17 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 18 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 19 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Panic Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Away Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Home Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Stay Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Disarming Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Arm Scenario button</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Custom A Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Partition 20 Custom B Scenario function</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>read Ksenia Conf for list...</default>
+        <items>
+          <item>read Ksenia Conf for list...</item>
+        </items>
+      </property>
+      <property>
+        <name>Log Level</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>3 - Info</default>
+        <items>
+          <item>0 - Fatal</item>
+          <item>1 - Error</item>
+          <item>2 - Warning</item>
+          <item>3 - Info</item>
+          <item>4 - Debug</item>
+          <item>5 - Trace</item>
+          <item>6 - Tags</item>
+        </items>
+      </property>
+      <property>
+        <name>Log Mode</name>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <default>Off</default>
+        <items>
+          <item>Off</item>
+          <item>Print</item>
+          <item>Log</item>
+          <item>Print and Log</item>
+        </items>
+      </property>
+      
+      <property>
+        <name>Log hashTags</name>
+        <type>STRING</type>
+        <readonly>false</readonly>
+        <default />
+      </property>
+      <property>
+        <name>Support Code</name>
+        <type>STRING</type>
+        <password>true</password>
+        <readonly>false</readonly>
+        <default />
+      </property>
+      <property>
+        <name>Driver Version</name>
+        <type>STRING</type>
+        <readonly>true</readonly>
+        <default>000</default>
+      </property>
+
+      <property>
+        <name>License Section</name>
+        <type>LABEL</type>
+        <default>Licensing</default>
+      </property>
+      <property>
+        <name>Cloud Status</name>
+        <default />
+        <type>STRING</type>
+        <readonly>true</readonly>
+      </property>
+      <property>
+        <name>Automatic Updates</name>
+        <type>LIST</type>
+        <items>
+          <item>Off</item>
+          <item>On</item>
+        </items>
+        <default>Off</default>
+        <readonly>false</readonly>
+      </property>
+
+    </properties>
+    <commands>
+      <command>
+        <name>Call_Scenario</name>
+        <description>Call Ksenia Scenario &gt; PARAM1</description>
+        <params>
+          <param>
+            <name>scenario_ID</name>
+            <type>RANGED_INTEGER</type>
+            <minimum>1</minimum>
+            <maximum>128</maximum>
+          </param>
+        </params>
+      </command>
+      <command>
+        <name>ByPass_Zone</name>
+        <description>Bypass Zone &gt; PARAM1</description>
+        <params>
+          <param>
+            <name>zone_ID</name>
+            <type>RANGED_INTEGER</type>
+            <minimum>1</minimum>
+            <maximum>2000</maximum>
+          </param>
+        </params>
+      </command>
+      <command>
+        <name>UnByPass_Zone</name>
+        <description>Unbypass Zone &gt; PARAM1</description>
+        <params>
+          <param>
+            <name>zone_ID</name>
+            <type>RANGED_INTEGER</type>
+            <minimum>1</minimum>
+            <maximum>2000</maximum>
+          </param>
+        </params>
+      </command>
+    </commands>
+  </config>
+  <connections>
+    
+     <connection>
+      <id>376</id>
+      <facing>6</facing>
+      <connectionname>KSenia Domus Data</connectionname>
+      <type>1</type>
+      <autobind>false</autobind>
+      <consumer>false</consumer>
+      <audiosource>false</audiosource>
+      <videosource>false</videosource>
+      <linelevel>false</linelevel>
+      <classes>
+        <class>
+          <classname>KSENIA_DOMUS_DATA</classname>
+        </class>
+      </classes>
+      <hidden>false</hidden>
+    </connection>
+    <connection>
+      <id>377</id>
+      <facing>6</facing>
+      <connectionname>Ksenia Auxi HT Data</connectionname>
+      <type>1</type>
+      <autobind>false</autobind>
+      <consumer>false</consumer>
+      <audiosource>false</audiosource>
+      <videosource>false</videosource>
+      <linelevel>false</linelevel>
+      <classes>
+        <class>
+          <classname>KSENIA_AUXIHT_DATA</classname>
+        </class>
+      </classes>
+      <hidden>false</hidden>
+    </connection>
+    
+    <connection>
+      <id>5001</id>
+      <facing>6</facing>
+      <connectionname>Ksenia Panel lares4</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY_PANEL</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    
+    <connection>
+      <id>5002</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 1</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5003</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 2</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5004</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 3</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5005</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 4</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5006</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 5</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5007</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 6</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5008</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 7</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5009</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 8</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5010</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 9</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5011</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 10</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5012</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 11</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5013</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 12</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5014</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 13</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5015</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 14</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5016</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 15</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5017</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 16</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5018</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 17</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5019</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 18</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5020</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 19</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    <connection>
+      <id>5021</id>
+      <facing>6</facing>
+      <connectionname>KseniaPartition 20</connectionname>
+      <type>2</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <classname>SECURITY</classname>
+        </class>
+      </classes>
+      <hidden>False</hidden>
+    </connection>
+    
+    
+    <connection proxybindingid="5002">
+      <id>7002</id>
+      <facing>6</facing>
+      <connectionname>Room Selection Partition 1</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5003">
+      <id>7003</id>
+      <facing>6</facing>
+      <connectionname>Room Selection Partition 2</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5004">
+      <id>7004</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 3</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5005">
+      <id>7005</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 4</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5006">
+      <id>7006</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 5</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5007">
+      <id>7007</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 6</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5008">
+      <id>7008</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 7</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5009">
+      <id>7009</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 8</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5010">
+      <id>7010</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 9</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5011">
+      <id>7011</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 10</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5012">
+      <id>7012</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 11</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5013">
+      <id>7013</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 12</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5014">
+      <id>7014</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 13</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5015">
+      <id>7015</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 14</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5016">
+      <id>7016</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 15</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5017">
+      <id>7017</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 16</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5018">
+      <id>7018</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 17</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5019">
+      <id>7019</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 18</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5020">
+      <id>7020</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 19</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+    <connection proxybindingid="5021">
+      <id>7021</id>
+      <facing>6</facing>
+      <connectionname>Room KseniaPartition 20</connectionname>
+      <type>7</type>
+      <consumer>False</consumer>
+      <audiosource>False</audiosource>
+      <videosource>False</videosource>
+      <linelevel>False</linelevel>
+      <classes>
+        <class>
+          <autobind>True</autobind>
+          <classname>SECURITY_SYSTEM</classname>
+        </class>
+      </classes>
+    </connection>
+  </connections>
+</devicedata>
