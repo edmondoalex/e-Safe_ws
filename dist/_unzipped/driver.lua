@@ -716,14 +716,20 @@ local function haHandleEntityState(entityId, haState)
   -- If HA provided attributes with a friendly name, prefer it for the entity's name
   if type(attrs) == "table" then
     local friendly = attrs["friendly_name"] or attrs["title"] or attrs["name"]
-    if friendly and trim(friendly) ~= "" and friendly ~= e.name then
+      if friendly and trim(friendly) ~= "" and friendly ~= e.name then
       debugLog("Updating entity name from HA: " .. tostring(entityId) .. " -> " .. tostring(friendly))
       e.name = tostring(friendly)
-      -- Try to update dynamic binding name if binding already exists
-      if e.bindingId and type(C4) == "table" and type(C4.AddDynamicBinding) == "function" then
-        pcall(function()
-          C4:AddDynamicBinding(e.bindingId, "CONTROL", true, e.name, (e.type == "binary_sensor") and "CONTACT_SENSOR" or "RELAY", false, false)
-        end)
+      -- If binding exists, try to remove and recreate it to ensure name updates
+      if e.bindingId and type(C4) == "table" then
+        -- Prefer RemoveDynamicBinding if available
+        if type(C4.RemoveDynamicBinding) == "function" then
+          pcall(function() C4:RemoveDynamicBinding(e.bindingId) end)
+        end
+        if type(C4.AddDynamicBinding) == "function" then
+          pcall(function()
+            C4:AddDynamicBinding(e.bindingId, "CONTROL", true, e.name, (e.type == "binary_sensor") and "CONTACT_SENSOR" or "RELAY", false, false)
+          end)
+        end
       end
       updateRegistryProperties()
     end
