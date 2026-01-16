@@ -29,7 +29,7 @@
       <property>
         <name>Driver Version</name>
         <type>STRING</type>
-        <default>000023</default>
+        <default>000034</default>
         <readonly>true</readonly>
       </property>
 
@@ -45,6 +45,93 @@
         <type>STRING</type>
         <default>---</default>
         <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last Mgmt</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Add Entity ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Add Entity Type</name>
+        <default>auto</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>auto</item>
+          <item>binary_sensor</item>
+          <item>switch</item>
+          <item>input_number</item>
+          <item>light</item>
+          <item>sensor</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Add Entity Name</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Add Entity Now</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Remove Entity ID</name>
+        <type>STRING</type>
+        <default></default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Remove Entity Now</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Clear All Now</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Refresh Status Now</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
       </property>
 
       <property>
@@ -215,6 +302,10 @@
             <type>STRING</type>
           </param>
           <param>
+            <name>DISPLAY_NAME</name>
+            <type>STRING</type>
+          </param>
+          <param>
             <name>TYPE</name>
             <type>LIST</type>
             <items>
@@ -253,5 +344,5 @@
   </config>
 
   <capabilities />
-  <version>000023</version>
+  <version>000034</version>
 </devicedata>

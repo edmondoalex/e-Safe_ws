@@ -6,7 +6,7 @@ local NETWORK_CONNECTION_ID = 6001
 
 local TIMER_RECONNECT = 101
 
-local DRIVER_VERSION = "000023"
+local DRIVER_VERSION = "000034"
 
 local WS_GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
@@ -49,6 +49,13 @@ local function trim(s)
 end
 
 local function lower(s) return string.lower(trim(s)) end
+
+local function looksLikeEntityId(s)
+  s = trim(s)
+  if s == "" then return false end
+  -- Home Assistant entity_id pattern: domain.object_id (allow underscores/digits)
+  return s:match("^[%w_]+%.[%w_]+$") ~= nil
+end
 
 local function isTruthyProperty(v)
   v = lower(v)
@@ -120,8 +127,29 @@ local function setProperty(name, value)
   end
 end
 
+local function getProperty(name)
+  -- Prefer querying Control4 APIs if available; on some firmwares the global
+  -- Properties table can be stale during rapid edits.
+  if C4 then
+    if type(C4.GetProperty) == "function" then
+      local ok, val = pcall(function() return C4:GetProperty(name) end)
+      if ok and val ~= nil then return val end
+    end
+    if type(C4.GetPropertyValue) == "function" then
+      local ok, val = pcall(function() return C4:GetPropertyValue(name) end)
+      if ok and val ~= nil then return val end
+    end
+  end
+  if Properties and Properties[name] ~= nil then return Properties[name] end
+  return nil
+end
+
 local function setStatus(s)
   setProperty("WS Status", s)
+end
+
+local function setMgmt(msg)
+  setProperty("Last Mgmt", (msg and tostring(msg)) or "")
 end
 
 -- Forward declaration (needed because some helpers are defined before state initialization).
@@ -257,7 +285,11 @@ local function registrySummary(maxItems)
       break
     end
     local e = reg[k]
-    out[#out + 1] = k .. " [" .. tostring(e and e.type or "?") .. "]"
+    local label = k
+    if type(e) == "table" and e.name and trim(e.name) ~= "" and e.name ~= k then
+      label = tostring(e.name) .. " (" .. k .. ")"
+    end
+    out[#out + 1] = label .. " [" .. tostring(e and e.type or "?") .. "]"
   end
   return table.concat(out, ", ")
 end
@@ -331,11 +363,14 @@ local function allocateBindingId()
   return id
 end
 
-local function createDynamicBindingIfNeeded(entity)
+local function createDynamicBindingIfNeeded(entity, forceRecreate)
   if not (C4 and type(C4.AddDynamicBinding) == "function") then return end
 
   if entity.type == "binary_sensor" then
     entity.bindingId = entity.bindingId or allocateBindingId()
+    if forceRecreate and type(C4.RemoveDynamicBinding) == "function" then
+      pcall(function() C4:RemoveDynamicBinding(entity.bindingId) end)
+    end
     pcall(function()
       C4:AddDynamicBinding(entity.bindingId, "CONTROL", true, entity.name, "CONTACT_SENSOR", false, false)
     end)
@@ -345,6 +380,9 @@ local function createDynamicBindingIfNeeded(entity)
 
   if entity.type == "switch" or entity.type == "light" then
     entity.bindingId = entity.bindingId or allocateBindingId()
+    if forceRecreate and type(C4.RemoveDynamicBinding) == "function" then
+      pcall(function() C4:RemoveDynamicBinding(entity.bindingId) end)
+    end
     pcall(function()
       C4:AddDynamicBinding(entity.bindingId, "CONTROL", true, entity.name, "RELAY", false, false)
     end)
@@ -353,7 +391,7 @@ local function createDynamicBindingIfNeeded(entity)
   end
 end
 
-local function registerEntity(entityId, entityType)
+local function registerEntity(entityId, entityType, displayName)
   entityId = trim(entityId)
   if entityId == "" then return false, "empty entity_id" end
 
@@ -364,13 +402,18 @@ local function registerEntity(entityId, entityType)
   if entityType == "" or entityType == "auto" then
     entityType = guessTypeFromEntity(entityId)
   end
+  displayName = trim(displayName)
 
   local existing = reg[entityId]
   if existing then
     existing.type = entityType
     existing.name = existing.name or entityId
     existing.var = existing.var or sanitizeVarName(entityId)
-    createDynamicBindingIfNeeded(existing)
+    if displayName ~= "" then
+      existing.name = displayName
+      existing.custom_name = true
+    end
+    createDynamicBindingIfNeeded(existing, displayName ~= "")
     addVariableIfPossible(existing.var, existing.last_state or "", "STRING")
     updateRegistryProperties()
     return true, "updated"
@@ -379,13 +422,14 @@ local function registerEntity(entityId, entityType)
   local e = {
     entity_id = entityId,
     type = entityType,
-    name = entityId,
+    name = (displayName ~= "" and displayName or entityId),
+    custom_name = (displayName ~= ""),
     var = sanitizeVarName(entityId),
     bindingId = nil,
     last_state = "",
   }
 
-  createDynamicBindingIfNeeded(e)
+  createDynamicBindingIfNeeded(e, false)
   addVariableIfPossible(e.var, "", "STRING")
 
   reg[entityId] = e
@@ -714,23 +758,13 @@ local function haHandleEntityState(entityId, haState)
   end
 
   -- If HA provided attributes with a friendly name, prefer it for the entity's name
-  if type(attrs) == "table" then
+  -- unless a custom name was set by the user via the Add Entity command.
+  if type(attrs) == "table" and not e.custom_name then
     local friendly = attrs["friendly_name"] or attrs["title"] or attrs["name"]
-      if friendly and trim(friendly) ~= "" and friendly ~= e.name then
+    if friendly and trim(friendly) ~= "" and friendly ~= e.name then
       debugLog("Updating entity name from HA: " .. tostring(entityId) .. " -> " .. tostring(friendly))
       e.name = tostring(friendly)
-      -- If binding exists, try to remove and recreate it to ensure name updates
-      if e.bindingId and type(C4) == "table" then
-        -- Prefer RemoveDynamicBinding if available
-        if type(C4.RemoveDynamicBinding) == "function" then
-          pcall(function() C4:RemoveDynamicBinding(e.bindingId) end)
-        end
-        if type(C4.AddDynamicBinding) == "function" then
-          pcall(function()
-            C4:AddDynamicBinding(e.bindingId, "CONTROL", true, e.name, (e.type == "binary_sensor") and "CONTACT_SENSOR" or "RELAY", false, false)
-          end)
-        end
-      end
+      createDynamicBindingIfNeeded(e, true) -- force recreate to refresh name in Composer Connections
       updateRegistryProperties()
     end
   end
@@ -997,9 +1031,10 @@ function ExecuteCommand(strCommand, tParams)
 
   if strCommand == "Add Entity" then
     local id = tParams["ENTITY_ID"] or tParams["Entity ID"] or tParams["ID"] or ""
+    local name = tParams["DISPLAY_NAME"] or tParams["Display Name"] or tParams["NAME"] or tParams["Name"] or ""
     local ty = tParams["TYPE"] or tParams["Type"] or "auto"
-    local ok, msg = registerEntity(id, ty)
-    log("Add Entity: " .. tostring(id) .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
+    local ok, msg = registerEntity(id, ty, name)
+    log("Add Entity: " .. tostring(id) .. (trim(tostring(name)) ~= "" and (" name=" .. tostring(name)) or "") .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
     if state.ha_authed then haGetStates() end
     return
   end
@@ -1031,11 +1066,15 @@ function ExecuteCommand(strCommand, tParams)
 end
 
 function OnDriverInit()
-  pcall(function() math.randomseed(os.time()) end)
-  TRUESET = setFromCSV(Properties and Properties["True Values"] or "")
-  FALSESET = setFromCSV(Properties and Properties["False Values"] or "")
-
+  -- Always refresh displayed version (Composer may preserve old property values across updates)
   setProperty("Driver Version", DRIVER_VERSION)
+
+  pcall(function() math.randomseed(os.time()) end)
+  local okT, tset = pcall(function() return setFromCSV(Properties and Properties["True Values"] or "") end)
+  local okF, fset = pcall(function() return setFromCSV(Properties and Properties["False Values"] or "") end)
+  TRUESET = (okT and tset) or {}
+  FALSESET = (okF and fset) or {}
+
   ensurePersist()
   updateRegistryProperties()
 
@@ -1048,6 +1087,9 @@ function OnDriverInit()
 end
 
 function OnDriverLateInit()
+  -- Refresh version here too (some update paths call LateInit without Init-like behavior)
+  setProperty("Driver Version", DRIVER_VERSION)
+
   -- Restore dynamic bindings/variables
   local reg = getRegistry()
   for _, e in pairs(reg) do
@@ -1064,13 +1106,118 @@ function OnDriverLateInit()
 end
 
 function OnPropertyChanged(name)
+  -- Track edits to management fields (helps confirm Composer committed the value)
+  if name == "Add Entity ID" or name == "Add Entity Type" or name == "Add Entity Name" or name == "Remove Entity ID" then
+    setMgmt("SET " .. tostring(name) .. "=" .. tostring(getProperty(name) or ""))
+    return
+  end
+  -- Entity management via Properties (no Programming/Device Specific commands needed)
+  if name == "Add Entity Now" then
+    if isTruthyProperty(getProperty(name) or "") then
+      local id = getProperty("Add Entity ID") or ""
+      local ty = getProperty("Add Entity Type") or "auto"
+      local displayName = getProperty("Add Entity Name") or ""
+
+      -- Composer users often paste entity_id into the "Name" field by mistake.
+      -- If entity_id is empty but the name looks like domain.entity, treat it as entity_id.
+      if trim(id) == "" and looksLikeEntityId(displayName) then
+        setMgmt("ADD WARNING: entity_id empty; using Add Entity Name as ENTITY_ID")
+        id, displayName = displayName, ""
+      end
+
+      setMgmt("ADD id=" .. tostring(id) .. " type=" .. tostring(ty) .. (trim(displayName) ~= "" and (" name=" .. tostring(displayName)) or ""))
+      local ok, msg = registerEntity(id, ty, displayName)
+      log("Add Entity (props): " .. tostring(id) .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
+      setMgmt("ADD id=" .. tostring(id) .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
+      if state and state.ha_authed then haGetStates() end
+      setProperty("Add Entity Now", "No")
+    end
+    return
+  end
+
+  if name == "Remove Entity Now" then
+    if isTruthyProperty(getProperty(name) or "") then
+      local id = getProperty("Remove Entity ID") or ""
+      setMgmt("REMOVE id=" .. tostring(id))
+      local ok, msg = unregisterEntity(id)
+      log("Remove Entity (props): " .. tostring(id) .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
+      setMgmt("REMOVE id=" .. tostring(id) .. " -> " .. tostring(ok) .. " (" .. tostring(msg) .. ")")
+      setProperty("Remove Entity Now", "No")
+    end
+    return
+  end
+
+  if name == "Clear All Now" then
+    if isTruthyProperty(getProperty(name) or "") then
+      setMgmt("CLEAR ALL")
+      ensurePersist()
+      PersistData.ha.entities = {}
+      updateRegistryProperties()
+      log("Clear Entities (props): OK")
+      setMgmt("CLEAR ALL -> OK")
+      setProperty("Clear All Now", "No")
+    end
+    return
+  end
+
+  if name == "Refresh Status Now" then
+    if isTruthyProperty(getProperty(name) or "") then
+      if state and state.ha_authed then
+        setMgmt("REFRESH -> get_states")
+        haGetStates()
+        log("Refresh States (props): requested")
+      else
+        setMgmt("REFRESH -> reconnect")
+        log("Refresh States (props): not authed; reconnecting")
+        connectTcp()
+      end
+      setProperty("Refresh Status Now", "No")
+    end
+    return
+  end
+
   if name == "True Values" or name == "False Values" then
     TRUESET = setFromCSV(Properties and Properties["True Values"] or "")
     FALSESET = setFromCSV(Properties and Properties["False Values"] or "")
     return
   end
-  if name == "Debug" or name == "Log Payload" then return end
-  connectTcp()
+
+  -- Ignore non-connection settings to avoid needless reconnects.
+  local ignore = {
+    ["Driver Version"] = true,
+    ["Entities Count"] = true,
+    ["Entities Preview"] = true,
+    ["Last Entity"] = true,
+    ["Last State"] = true,
+    ["WS Status"] = true,
+    ["Last JSON"] = true,
+    ["Last Proxy Binding"] = true,
+    ["Last Proxy Command"] = true,
+    ["Last Proxy Params"] = true,
+    ["Debug"] = true,
+    ["Debug Verbose"] = true,
+    ["Log Payload"] = true,
+    ["Add Entity ID"] = true,
+    ["Add Entity Type"] = true,
+    ["Add Entity Name"] = true,
+    ["Remove Entity ID"] = true,
+    ["Entity ID"] = true,
+  }
+  if ignore[name] then return end
+
+  -- Reconnect on connection-related settings changes only.
+  local reconnectOn = {
+    ["Home Assistant Host"] = true,
+    ["Home Assistant Port"] = true,
+    ["WebSocket Path"] = true,
+    ["Use TLS (wss)"] = true,
+    ["Access Token"] = true,
+    ["Reconnect Min (sec)"] = true,
+    ["Reconnect Max (sec)"] = true,
+  }
+  if reconnectOn[name] then
+    connectTcp()
+  end
 end
 
 function ReceivedFromProxy(idBinding, strCommand, tParams)
