@@ -686,27 +686,53 @@ local function haHandleEntityState(entityId, haState)
   local reg = getRegistry()
   local e = reg[entityId]
 
+  -- haState can be either a string (old callers) or a table (full HA state object)
+  local stateVal = nil
+  local attrs = nil
+  if type(haState) == "table" then
+    stateVal = tostring(haState.state or "")
+    attrs = haState.attributes
+  else
+    stateVal = tostring(haState or "")
+  end
+
   if not e then
     -- Fallback to single-entity mode if registry is empty.
     local wanted = trim(Properties and Properties["Entity ID"] or "")
     if wanted ~= "" and entityId ~= wanted then return end
 
-    local key = lower(haState)
+    local key = lower(stateVal)
     if TRUESET[key] then
-      setContactState(true, entityId, haState)
+      setContactState(true, entityId, stateVal)
     elseif FALSESET[key] then
-      setContactState(false, entityId, haState)
+      setContactState(false, entityId, stateVal)
     else
       setProperty("Last Entity", entityId or "")
-      setProperty("Last State", haState or "")
+      setProperty("Last State", stateVal or "")
     end
     return
   end
 
-  e.last_state = tostring(haState or "")
+  -- If HA provided attributes with a friendly name, prefer it for the entity's name
+  if type(attrs) == "table" then
+    local friendly = attrs["friendly_name"] or attrs["title"] or attrs["name"]
+    if friendly and trim(friendly) ~= "" and friendly ~= e.name then
+      debugLog("Updating entity name from HA: " .. tostring(entityId) .. " -> " .. tostring(friendly))
+      e.name = tostring(friendly)
+      -- Try to update dynamic binding name if binding already exists
+      if e.bindingId and type(C4) == "table" and type(C4.AddDynamicBinding) == "function" then
+        pcall(function()
+          C4:AddDynamicBinding(e.bindingId, "CONTROL", true, e.name, (e.type == "binary_sensor") and "CONTACT_SENSOR" or "RELAY", false, false)
+        end)
+      end
+      updateRegistryProperties()
+    end
+  end
+
+  e.last_state = tostring(stateVal or "")
   setVariableIfPossible(e.var, e.last_state)
 
-  local key = lower(haState)
+  local key = lower(stateVal)
   local truthy = TRUESET[key] and true or false
   local falsy = FALSESET[key] and true or false
 
@@ -791,14 +817,15 @@ local function haHandleJson(jsonText)
       if hasRegistry then
         for _, st in ipairs(msg.result) do
           if type(st) == "table" and st.entity_id and reg[st.entity_id] then
-            haHandleEntityState(st.entity_id, st.state)
+            -- pass full state object so we can extract attributes/friendly_name
+            haHandleEntityState(st.entity_id, st)
           end
         end
       else
         local wanted = trim(Properties and Properties["Entity ID"] or "")
         for _, st in ipairs(msg.result) do
           if type(st) == "table" and st.entity_id == wanted then
-            haHandleEntityState(st.entity_id, st.state)
+            haHandleEntityState(st.entity_id, st)
             break
           end
         end
@@ -827,7 +854,8 @@ local function haHandleJson(jsonText)
     end
     if e.new_state and type(e.new_state) == "table" then
       debugLog("state_changed entity=" .. tostring(entityId) .. " state=" .. tostring(e.new_state.state))
-      haHandleEntityState(entityId, e.new_state.state)
+      -- pass full state object (contains attributes) so we can get friendly_name
+      haHandleEntityState(entityId, e.new_state)
     end
   end
 end
