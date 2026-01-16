@@ -29,7 +29,7 @@
       <property>
         <name>Driver Version</name>
         <type>STRING</type>
-        <default>000021</default>
+        <default>000022</default>
         <readonly>true</readonly>
       </property>
 
@@ -253,5 +253,5 @@
   </config>
 
   <capabilities />
-  <version>000021</version>
+  <version>000022</version>
 </devicedata>
