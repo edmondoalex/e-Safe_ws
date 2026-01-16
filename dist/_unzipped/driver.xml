@@ -1,0 +1,256 @@
+<devicedata>
+  <copyright>Copyright 2026 e-safe. All rights reserved.</copyright>
+  <manufacturer>e-safe</manufacturer>
+  <model>e_safe_ws</model>
+  <creator>e-safe</creator>
+  <created>1/15/2026 3:00 PM</created>
+  <modified>1/15/2026 3:00 PM</modified>
+
+  <name>e-Safe_ws</name>
+
+  <small image_source="c4z">www/icons/device_sm.png</small>
+  <large image_source="c4z">www/icons/device_lg.png</large>
+
+  <control>lua_gen</control>
+  <driver>DriverWorks</driver>
+  <controlmethod>other</controlmethod>
+
+  <proxies qty="1">
+    <proxy proxybindingid="5001" name="CONTACT" primary="True">CONTACT_SENSOR</proxy>
+  </proxies>
+
+  <combo>true</combo>
+
+  <config>
+    <script encryption="0" file="driver.lua" jit="0"/>
+
+    <properties>
+      <property>
+        <name>Driver Version</name>
+        <type>STRING</type>
+        <default>000021</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Entities Count</name>
+        <type>STRING</type>
+        <default>0</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Entities Preview</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Home Assistant Host</name>
+        <type>STRING</type>
+        <default>127.0.0.1</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Home Assistant Port</name>
+        <type>STRING</type>
+        <default>8123</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>WebSocket Path</name>
+        <type>STRING</type>
+        <default>/api/websocket</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Use TLS (wss)</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Access Token</name>
+        <type>STRING</type>
+        <default/>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Entity ID</name>
+        <type>STRING</type>
+        <default>binary_sensor.front_door</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Reconnect Min (sec)</name>
+        <type>STRING</type>
+        <default>5</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Reconnect Max (sec)</name>
+        <type>STRING</type>
+        <default>60</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>True Values</name>
+        <type>STRING</type>
+        <default>ON,OPEN,true,1</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>False Values</name>
+        <type>STRING</type>
+        <default>OFF,CLOSED,false,0</default>
+        <readonly>false</readonly>
+      </property>
+
+      <property>
+        <name>Debug</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Debug Verbose</name>
+        <default>No</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <property>
+        <name>Log Payload</name>
+        <default>Yes</default>
+        <type>LIST</type>
+        <readonly>false</readonly>
+        <items>
+          <item>No</item>
+          <item>Yes</item>
+        </items>
+      </property>
+
+      <!-- proprieta' di stato in sola lettura (come felma_nod) -->
+      <property>
+        <name>Last Entity</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last State</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>WS Status</name>
+        <type>STRING</type>
+        <default>INIT</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last JSON</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last Proxy Binding</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last Proxy Command</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+
+      <property>
+        <name>Last Proxy Params</name>
+        <type>STRING</type>
+        <default>---</default>
+        <readonly>true</readonly>
+      </property>
+    </properties>
+
+    <commands>
+      <command>
+        <name>Add Entity</name>
+        <description>Registers an HA entity and creates a dynamic binding/variable if applicable.</description>
+        <params>
+          <param>
+            <name>ENTITY_ID</name>
+            <type>STRING</type>
+          </param>
+          <param>
+            <name>TYPE</name>
+            <type>LIST</type>
+            <items>
+              <item>auto</item>
+              <item>binary_sensor</item>
+              <item>switch</item>
+              <item>input_number</item>
+              <item>light</item>
+              <item>sensor</item>
+            </items>
+          </param>
+        </params>
+      </command>
+      <command>
+        <name>Remove Entity</name>
+        <description>Unregisters an HA entity (keeps dynamic binding as-is).</description>
+        <params>
+          <param>
+            <name>ENTITY_ID</name>
+            <type>STRING</type>
+          </param>
+        </params>
+      </command>
+      <command>
+        <name>Clear Entities</name>
+        <description>Clears all registered entities.</description>
+        <params/>
+      </command>
+      <command>
+        <name>Refresh States</name>
+        <description>Requests a full state refresh from Home Assistant.</description>
+        <params/>
+      </command>
+    </commands>
+    <documentation file="www/documentation/documentation.rtf"/>
+  </config>
+
+  <capabilities/>
+  <version>000021</version>
+</devicedata>

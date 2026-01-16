@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Driver type="c4z" name="e_safe_contact_mqtt" squishLua="false">
+<Driver type="c4z" name="e-Safe_ws" squishLua="false">
   <Items>
     <Item type="file" name="driver.xml" />
     <Item type="file" name="driver.lua" />
