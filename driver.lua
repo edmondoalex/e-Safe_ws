@@ -6,7 +6,7 @@ local NETWORK_CONNECTION_ID = 6001
 
 local TIMER_RECONNECT = 101
 
-local DRIVER_VERSION = "000034"
+local DRIVER_VERSION = "000039"
 
 local WS_GUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
 
@@ -85,6 +85,11 @@ local function debugVerbose(msg)
   if isTruthyProperty(Properties and Properties["Debug"] or "") and isTruthyProperty(Properties and Properties["Debug Verbose"] or "") then
     log("DEBUGV HA_WS: " .. tostring(msg))
   end
+end
+
+-- Extra tracing focused on dynamic outputs/bindings (uses Debug+Debug Verbose)
+local function debugOutput(msg)
+  debugVerbose("OUT: " .. tostring(msg))
 end
 
 local function maskToken(token)
@@ -351,6 +356,8 @@ local function sendProxyState(bindingId, kind, isOn)
   for _, a in ipairs(attempts) do
     pcall(function() C4:SendToProxy(bindingId, a[1], a[2]) end)
   end
+
+  debugOutput("notify binding=" .. tostring(bindingId) .. " kind=" .. tostring(kind) .. " isOn=" .. tostring(isOn) .. " attempts=" .. tostring(#attempts))
 end
 
 local function allocateBindingId()
@@ -374,7 +381,7 @@ local function createDynamicBindingIfNeeded(entity, forceRecreate)
     pcall(function()
       C4:AddDynamicBinding(entity.bindingId, "CONTROL", true, entity.name, "CONTACT_SENSOR", false, false)
     end)
-    debugLog("EnsureDynamicBinding CONTACT_SENSOR id=" .. tostring(entity.bindingId) .. " name=" .. tostring(entity.name))
+    debugOutput("EnsureDynamicBinding CONTACT_SENSOR id=" .. tostring(entity.bindingId) .. " name=" .. tostring(entity.name))
     return
   end
 
@@ -386,7 +393,7 @@ local function createDynamicBindingIfNeeded(entity, forceRecreate)
     pcall(function()
       C4:AddDynamicBinding(entity.bindingId, "CONTROL", true, entity.name, "RELAY", false, false)
     end)
-    debugLog("EnsureDynamicBinding RELAY id=" .. tostring(entity.bindingId) .. " name=" .. tostring(entity.name))
+    debugOutput("EnsureDynamicBinding RELAY id=" .. tostring(entity.bindingId) .. " name=" .. tostring(entity.name) .. " type=" .. tostring(entity.type))
     return
   end
 end
@@ -706,6 +713,7 @@ end
 
 local function haCallService(domain, service, entityId)
   local id = haNextId()
+  debugOutput("call_service id=" .. tostring(id) .. " " .. tostring(domain) .. "." .. tostring(service) .. " entity_id=" .. tostring(entityId))
   haSend({
     id = id,
     type = "call_service",
@@ -738,6 +746,14 @@ local function haHandleEntityState(entityId, haState)
     attrs = haState.attributes
   else
     stateVal = tostring(haState or "")
+  end
+
+  -- Keep a stable "monitor" in Properties: if the user sets Entity ID,
+  -- always reflect that entity's last state here (even when registry mode is enabled).
+  local monitorId = trim(getProperty("Entity ID") or "")
+  if monitorId ~= "" and entityId == monitorId then
+    setProperty("Last Entity", entityId or "")
+    setProperty("Last State", stateVal or "")
   end
 
   if not e then
@@ -782,7 +798,7 @@ local function haHandleEntityState(entityId, haState)
     elseif falsy then
       sendProxyState(e.bindingId, "contact", false)
     end
-  elseif e.type == "switch" and e.bindingId then
+  elseif (e.type == "switch" or e.type == "light") and e.bindingId then
     if truthy then
       sendProxyState(e.bindingId, "relay", true)
     elseif falsy then
@@ -808,7 +824,11 @@ local function haHandleJson(jsonText)
   end
 
   local t = msg.type
-  debugLog("WS->HA type=" .. tostring(t) .. " id=" .. tostring(msg.id or ""))
+  -- Avoid log spam: HA pushes many "event" messages (state_changed).
+  -- We already log state_changed details later (filtered), so don't log the generic "event" envelope at all.
+  if t ~= "event" then
+    debugLog("WS->HA type=" .. tostring(t) .. " id=" .. tostring(msg.id or ""))
+  end
   if t == "auth_required" then
     setStatus("AUTH_REQUIRED")
     local token = trim(Properties and Properties["Access Token"] or "")
@@ -1235,17 +1255,17 @@ function ReceivedFromProxy(idBinding, strCommand, tParams)
     end
   end
   if not target then
-    debugVerbose("ReceivedFromProxy ignored (no target) id=" .. tostring(idBinding) .. " cmd=" .. tostring(strCommand))
+    debugOutput("ReceivedFromProxy ignored (no target) id=" .. tostring(idBinding) .. " cmd=" .. tostring(strCommand) .. " params=" .. previewValue(tParams))
     return
   end
   if target.type ~= "switch" and target.type ~= "light" then
-    debugVerbose("ReceivedFromProxy ignored (type=" .. tostring(target.type) .. ") id=" .. tostring(idBinding) .. " cmd=" .. tostring(strCommand))
+    debugOutput("ReceivedFromProxy ignored (type=" .. tostring(target.type) .. ") id=" .. tostring(idBinding) .. " cmd=" .. tostring(strCommand) .. " params=" .. previewValue(tParams))
     return
   end
 
   strCommand = tostring(strCommand or "")
   local cmd = string.upper(strCommand)
-  debugLog("ReceivedFromProxy id=" .. tostring(idBinding) .. " cmd=" .. cmd .. " params=" .. previewValue(tParams))
+  debugOutput("ReceivedFromProxy target=" .. tostring(target.entity_id) .. " type=" .. tostring(target.type) .. " name=" .. tostring(target.name) .. " id=" .. tostring(idBinding) .. " cmd=" .. cmd .. " params=" .. previewValue(tParams))
 
   -- Handle TOGGLE directly via HA service (switch.toggle / light.toggle)
   if cmd == "TOGGLE" or cmd == "TGL" then
@@ -1270,6 +1290,15 @@ function ReceivedFromProxy(idBinding, strCommand, tParams)
       local s = string.upper(tostring(val))
       if s == "ON" or s == "1" or s == "TRUE" or s == "CLOSED" then wantOn = true end
       if s == "OFF" or s == "0" or s == "FALSE" or s == "OPEN" or s == "OPENED" then wantOn = false end
+    end
+  end
+
+  -- If a LIGHT/DIMMER is bound by mistake, it may send SET_LEVEL/SET_LEVEL_TARGET.
+  if wantOn == nil and (cmd == "SET_LEVEL" or cmd == "SET_LEVEL_TARGET" or cmd == "RAMP_TO_LEVEL" or cmd == "SET") and tParams and type(tParams) == "table" then
+    local level = tParams.LEVEL or tParams.level or tParams.VALUE or tParams.Val or tParams.TargetLevel or tParams.TARGET_LEVEL or tParams.BRIGHTNESS or tParams.brightness
+    level = tonumber(level)
+    if level ~= nil then
+      wantOn = level > 0
     end
   end
 
